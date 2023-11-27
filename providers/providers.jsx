@@ -14,7 +14,11 @@
 //   );
 // }
 import ReactQueryProvider from "../providers/ReactQueryProvider";
-
+import { TokenContextProvider } from "../context/token";
 export default function Providers({ children }) {
-  return <ReactQueryProvider>{children}</ReactQueryProvider>;
+  return (
+    <ReactQueryProvider>
+      <TokenContextProvider>{children} </TokenContextProvider>
+    </ReactQueryProvider>
+  );
 }

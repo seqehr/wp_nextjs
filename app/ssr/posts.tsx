@@ -2,14 +2,13 @@
 
 import { useQuery } from "@tanstack/react-query";
 import getPosts from "@/fetches/getPosts";
-
-export default function Posts(props) {
+export default function Posts(props: any) {
   const { data, isLoading } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["Post"],
     queryFn: getPosts,
     initialData: props.posts,
   });
 
   if (isLoading) return "loading";
-  else return JSON.stringify(data);
+  else return JSON.stringify(props.posts);
 }
