@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import getPosts from "@/fetches/getPosts";
 
 export default function Posts(props) {
   const { data, isLoading } = useQuery({
@@ -11,8 +12,4 @@ export default function Posts(props) {
 
   if (isLoading) return "loading";
   else return JSON.stringify(data);
-}
-
-async function getPosts() {
-  return [{ id: 1, title: "string" }];
 }

@@ -20,7 +20,7 @@
 //     </html>
 //   )
 // }
-import Providers from "./providers";
+import Providers from "../providers/providers";
 
 export default function RootLayout({
   children,
