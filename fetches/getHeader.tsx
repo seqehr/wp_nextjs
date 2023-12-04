@@ -1,7 +1,7 @@
 import Fetch from "@/helpers/Fetch";
-export default async function getPosts() {
+export default async function getHeader() {
   return Fetch({
-    url: "wp/v2/posts",
+    url: "hs/v1/header",
     fetchMethod: "get",
   }).then((result) => result.json());
 }

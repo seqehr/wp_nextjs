@@ -6,7 +6,7 @@ interface OutPut {
 }
 
 const Fetch = async ({ url, fetchMethod, body, token }: OutPut) => {
-  const baseUrl = "https://lezatkhayati.com/api/";
+  const baseUrl = "https://wp.s9p.ir/wp-json/";
   var newHeaders = {
     authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
