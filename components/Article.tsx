@@ -3,7 +3,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import getPosts from "@/fetches/getPosts";
 
-import { PostsTypes } from "@/types/PostsType";
+import { PostsTypes, Content } from "@/types/PostsType";
 import getSinglePost from "@/fetches/getSinglePost";
 import Link from "next/link";
 const Article = (props: any) => {
@@ -20,8 +20,10 @@ const Article = (props: any) => {
       <div>
         {/* {JSON.stringify(data)} */}
 
-        <div dangerouslySetInnerHTML={{ __html: data.content.rendered }}></div>
-        {data.tag_names !== undefined &&
+        <div
+          dangerouslySetInnerHTML={{ __html: data?.content.rendered ?? "" }}
+        ></div>
+        {data?.tag_names !== undefined &&
           data.tag_names.map((tag, index) => (
             <Link key={index} href={`/tags/${tag.id}/${tag.slug}`}>
               {tag.name}
