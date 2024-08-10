@@ -18,7 +18,7 @@ const Tag = (props: any) => {
 
   return (
     <div>
-      {data.map((post, index) => (
+      {data?.map((post, index) => (
         <Link key={index} href={`/articles/${post.id}/${post.slug}`}>
           {" "}
           {post.title.rendered}
