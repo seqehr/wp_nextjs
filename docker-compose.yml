@@ -1,0 +1,20 @@
+services:
+  srsep-front-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: srsepFront
+    hostname: srsep
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm start
+    ports:
+      - "5000:5000"
+    restart: always 
+    networks:
+        - airlayer_laravel_default
+networks:
+  airlayer_laravel_default:
+    external: true
