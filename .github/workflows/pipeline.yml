@@ -1,0 +1,66 @@
+name: wpnexrjsfront
+
+on:
+  push:
+    branches:
+      - "main"
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20"
+      - name: Install npm
+        run: npm install
+      - name: Build project
+        run: npm run build
+
+  soft_deploy:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: 91.107.244.152
+          username: root
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            cd srsep-front
+            cd wp_nextjs
+            git pull origin main
+            sudo docker compose down
+            sudo docker compose up -d
+
+  hard_deploy:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: 91.107.244.152
+          username: root
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            if [ ! -d "srsep-front" ]; then
+              mkdir srsep-front
+            fi
+            cd srsep-front
+            rm -rf *
+            git clone https://github.com/seqehr/wp_nextjs.git
+            cd wp_nextjs
+            sudo docker compose down -v --rmi local
+            sudo docker compose up -d
